@@ -1,6 +1,8 @@
 export interface  ConferenceRoom{
-  organizationName: string;
+  conferenceRoomId: number;
   conferenceRoomName: string;
+  organizationName: string;
+  availability: string;
   level: number;
   sittingPlaces: number;
   standingPlaces: number;

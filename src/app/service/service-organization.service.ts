@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Organization} from "../model/organization";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceOrganizationService {
 
-  private apiServerOrganizationUrl = 'http://localhost:8082';
+  private apiServerOrganizationUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
 

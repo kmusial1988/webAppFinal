@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Organization} from "../model/organization";
 import {ConferenceRoom} from "../model/conferenceRoom";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConferenceRoomService {
 
-  private apiRoomOrganizationUrl = 'http://localhost:8082';
+  private apiRoomOrganizationUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -17,12 +17,12 @@ export class ConferenceRoomService {
     return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}/conference-room`);
   }
 
-  public addRoom(conferenceRoom: ConferenceRoom): Observable<Organization>{
-    return this.http.post<Organization>(`${this.apiRoomOrganizationUrl}/conference-room/add`, conferenceRoom);
+  public addRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
+    return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/add`, conferenceRoom);
   }
 
-  public updateRoom(conferenceRoom: ConferenceRoom): Observable<Organization>{
-    return this.http.put<Organization>(`${this.apiRoomOrganizationUrl}/conference-room/update`, conferenceRoom);
+  public updateRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
+    return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/update`, conferenceRoom);
   }
 
   public deleteRoom(organizationId: number): Observable<void>{

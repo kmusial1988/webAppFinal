@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="add-organization-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
         </div>
@@ -234,7 +234,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #addForm="ngForm" (ngSubmit)="onAddOrganization(addForm)">
+          <form #addForm="ngForm" (ngSubmit)="onAddConferenceRoom(addForm)">
             <div class="form-group">
               <label for="organizationName">organizationName</label>
               <input type="text" ngModel name="organizationName" class="form-control" id="organizationName" placeholder="organizationName" required>
@@ -258,7 +258,45 @@
 
             <div class="modal-footer">
               <button  type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  room Reservation-->
+  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="addReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addReservationModalLabel">Add Reservation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
+            <div class="form-group">
+              <label for="organizationName">organizationName</label>
+              <input type="text" ngModel name="organizationName" class="form-control" id="organizationNameReservation" placeholder="organizationName" required>
+            </div>
+            <div class="form-group">
+              <label for="conferenceRoomName">conferenceRoomName</label>
+              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
+            </div>
+            <div class="form-group">
+              <label for="level">reservationStartDate</label>
+              <input type="text" ngModel name="reservationStartDate" class="form-control" id="reservationStartDate" placeholder="level" required>
+            </div>
+            <div class="form-group">
+              <label for="sittingPlaces">ReservationEndDate</label>
+              <input type="text" ngModel name="reservationEndDate" class="form-control" id="ReservationEndDate" placeholder="sittingPlaces" required>
+            </div>
+            <div class="modal-footer">
+              <button  type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
         </div>
