@@ -106,7 +106,7 @@
                           <td><p>{{reservation?.organizationName}}</p></td>
                           <td ><p>{{reservation?.conferenceRoomName}}</p></td>
                           <td><p>{{reservation?.reservationStartDate}}</p></td>
-                          <td><p>{{reservation?.ReservationEndDate}}</p></td>
+                          <td><p>{{reservation?.reservationEndDate}}</p></td>
 
                           <td style="width: 20%;">
                             <a href="#" class="table-link  text-info">
@@ -176,7 +176,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to delete organization {{deleteOrganization?.organizationName}}?</p>
+          <p>Are you sure you want to delete organization {{deleteOrganization?.organizationName}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             <button (click)="onDeleteOrganization(deleteOrganization?.organizationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
@@ -203,9 +203,7 @@
                                name="key" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..." required>
                       </form>
                       <table class="table user-list">
-
                         <thead>
-
                         <tr>
                           <th><span>Organization Name</span></th>
                           <th><span>Room Name</span></th>
@@ -216,11 +214,7 @@
                           <th>&nbsp;</th>
                         </tr>
                         </thead>
-
-
-
                         <tbody *ngFor="let conferenceRoom of conferenceRooms">
-
                         <tr>
                           <td><p>{{conferenceRoom?.organizationName}}</p></td>
                           <td ><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
@@ -229,23 +223,17 @@
                           <td><p>{{conferenceRoom?.sittingPlaces}}</p></td>
                           <td><p>{{conferenceRoom?.standingPlaces}}</p></td>
                           <td style="width: 20%;">
-
-
                             <a href="#" class="table-link  text-info">
                               <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'addReservation')" class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></a>
-
                             </a>
                             <a href="#" class="table-link  text-info">
                               <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'updateRoom')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-
                             </a>
                             <a href="#" class="table-link danger">
                               <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'deleteRoom')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-
                             </a>
                           </td>
                         </tr>
-
                         </tbody>
                       </table>
                     </div>
@@ -279,11 +267,11 @@
             </div>
             <div class="form-group">
               <label for="organizationNameRoom">organizationName</label>
-              <input type="text" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required>
+              <input type="text" ngModel="{{addRoomWithOrganization?.organizationName}}" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required>
             </div>
             <div class="form-group">
               <label for="availability">availability</label>
-              <input type="text" ngModel name="availability" class="form-control" id="availability" placeholder="availability" required>
+              <input type="text" ngModel="YES" name="availability" class="form-control" id="availability" placeholder="availability" required>
             </div>
             <div class="form-group">
               <label for="level">level</label>
@@ -320,12 +308,8 @@
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
             <div class="form-group">
-              <label for="organizationNameReservation">Name</label>
-              <input type="text" ngModel name="organizationName" class="form-control" id="organizationNameReservation" placeholder="Name Organization" required>
-            </div>
-            <div class="form-group">
               <label for="conferenceRoomNameReservation">conferenceRoomName</label>
-              <input type="text"  name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
+              <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
             </div>
             <div class="form-group">
               <label for="reservationStartDateReservation">reservationStartDate</label>
@@ -403,7 +387,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to delete this room ?{{deleteConferenceRoom?.organizationName}}</p>
+          <p>Are you sure you want to delete this room {{deleteConferenceRoom?.conferenceRoomName}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             <button (click)="onDeleteConferenceRoom(deleteConferenceRoom?.conferenceRoomId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
@@ -414,8 +398,39 @@
   </div>
 
 
-
-
+  <!--  update Reservation-->
+  <div class="modal fade" id="updateReservationModal" tabindex="-1" role="dialog" aria-labelledby="updateReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateReservationModalLabel">Edit Reservation </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <input type="hidden" ngModel="{{editReservation?.reservationId}}" name="reservationId" class="form-control" id="reservationIdReservationEdit" placeholder="reservationId">
+            <input type="hidden" ngModel="{{editReservation?.reservationIdentifier}}"  name="reservationIdentifier" class="form-control" id="reservationIdentifierReservationEdit" placeholder="reservationIdentifier">
+            <input type="hidden" ngModel="{{editReservation?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservationEdit" placeholder="conferenceRoomName">
+            <input type="hidden" ngModel="{{editReservation?.organizationName}}"  name="organizationName" class="form-control" id="organizationNameReservationEdit" placeholder="organizationName">
+            <div class="form-group">
+              <label for="reservationStartDateReservationEdit">reservationStartDate</label>
+              <input type="text" ngModel="{{editReservation?.reservationStartDate}}" name="reservationStartDate" class="form-control" id="reservationStartDateReservationEdit" placeholder="reservationStartDate">
+            </div>
+            <div class="form-group">
+              <label for="reservationEndDateReservationEdit">reservationEndDate</label>
+              <input type="text" ngModel="{{editReservation?.reservationEndDate}}" name="reservationEndDate" class="form-control" id="reservationEndDateReservationEdit" placeholder="reservationEndDate">
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button  (click)="onUpdateConferenceRoom(editForm.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--  delete Reservation-->
 

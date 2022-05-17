@@ -17,12 +17,11 @@ export class AppComponent implements OnInit {
   public organizations: Organization[];
   public editOrganization: Organization;
   public deleteOrganization: Organization;
-  public addRoomOrganization: Organization;
-  public listRoomOrganization: Organization;
-
+  public roomOrganization: Organization;
+  public addRoomWithOrganization: Organization;
+  public reservationOrganization: Organization;
 
   public conferenceRooms: ConferenceRoom[];
-  public conferenceRoomsList: ConferenceRoom[];
   public editConferenceRoom: ConferenceRoom;
   public deleteConferenceRoom: ConferenceRoom;
   public addReservationRoom: ConferenceRoom;
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-
   public onAddOrganization(addForm: NgForm): void {
     document.getElementById('add-organization-form').click();
     this.organizationService.addOrganization(addForm.value).subscribe(
@@ -71,6 +69,7 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
   public onUpdateOrganization(organization: Organization): void {
     this.organizationService.updateOrganization(organization).subscribe(
       (response: Organization) => {
@@ -95,8 +94,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-
-
   public searchOrganizations(key: string): void {
     console.log(key);
     const results: Organization[] = [];
@@ -111,8 +108,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  //ConferenceRoom
-
   public getConferenceRooms(): void{
     this.conferenceRoomService.getRoom().subscribe(
       (response: ConferenceRoom[]) => {
@@ -125,20 +120,6 @@ export class AppComponent implements OnInit {
     );
 
   }
-
-  public getConferenceRoomsListByOrganization(organizationName: string): void{
-    this.conferenceRoomService.getRoomByName(organizationName).subscribe(
-      (response: ConferenceRoom[]) => {
-        this.conferenceRoomsList = response;
-        console.log(this.conferenceRoomsList);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-
-  }
-
 
   public onAddConferenceRoom(addForm: NgForm): void {
     document.getElementById('add-room-form').click();
@@ -156,8 +137,72 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public getReservations(): void{
+    this.reservationService.getReservation().subscribe(
+      (response: Reservation[]) => {
+        this.reservations = response;
+        console.log(this.reservations);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onOpenModalOrganization(organization: Organization, mode: string): void{
+    const container = document.getElementById('main-container')
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if(mode === 'add') {
+      button.setAttribute('data-target', '#addOrganizationModal');
+    }
+    if(mode === 'edit') {
+      this.editOrganization = organization;
+      button.setAttribute('data-target', '#updateOrganizationModal');
+    }
+    if(mode === 'delete') {
+      this.deleteOrganization = organization;
+      button.setAttribute('data-target', '#deleteOrganizationModal');
+    }
+    //TODO
+    if(mode === 'roomList') {
+      this.roomOrganization = organization;
+      button.setAttribute('data-target', '#allOrganizationRoomModal');
+    }
+    //TODO
+    if(mode === 'roomAdd') {
+      this.addRoomWithOrganization = organization;
+      button.setAttribute('data-target', '#addRoomModal');
+    }
+    //TODO
+    if(mode === 'reservation') {
+      this.reservationOrganization = organization;
+      button.setAttribute('data-target', '#allReservationModal');
+    }
+    container.appendChild(button);
+    button.click();
+  }
 
 
+
+  //ConferenceRoom
+
+  public onAddReservation(addForm: NgForm): void {
+    document.getElementById('add-reservation-form').click();
+    this.reservationService.addReservation(addForm.value).subscribe(
+      (response: Reservation) => {
+        console.log(response);
+        this.getReservations();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
 
   public onUpdateConferenceRoom(conferenceRoom: ConferenceRoom): void {
     this.conferenceRoomService.updateRoom(conferenceRoom).subscribe(
@@ -172,7 +217,7 @@ export class AppComponent implements OnInit {
   }
 
   public onDeleteConferenceRoom(conferenceRoomId: number): void {
-    this.organizationService.deleteOrganization(conferenceRoomId).subscribe(
+    this.conferenceRoomService.deleteRoom(conferenceRoomId).subscribe(
       (response: void) => {
         console.log(response);
         this.getConferenceRooms();
@@ -182,7 +227,6 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
 
 
   public searchConferenceRoom(key: string): void {
@@ -199,36 +243,34 @@ export class AppComponent implements OnInit {
     }
   }
 
+  public onOpenModalRoom(conferenceRoom: ConferenceRoom,   mode: string): void{
+    const container = document.getElementById('main-container')
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
+    if(mode === 'addReservation') {
+      this.addReservationRoom = conferenceRoom;
+      button.setAttribute('data-target', '#addReservationModal');
+    }
+
+    if(mode === 'updateRoom') {
+      this.editConferenceRoom = conferenceRoom;
+      button.setAttribute('data-target', '#updateRoomModal');
+    }
+    if(mode === 'deleteRoom') {
+      this.deleteConferenceRoom = conferenceRoom;
+      button.setAttribute('data-target', '#deleteRoomModal');
+    }
+    container.appendChild(button);
+    button.click();
+  }
+
   //Reservation
 
-  public getReservations(): void{
-    this.reservationService.getReservation().subscribe(
-      (response: Reservation[]) => {
-        this.reservations = response;
-        console.log(this.reservations);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
 
 
-
-  public onAddReservation(addForm: NgForm): void {
-    document.getElementById('add-reservation-form').click();
-    this.reservationService.addReservation(addForm.value).subscribe(
-      (response: Reservation) => {
-        console.log(response);
-        this.getReservations();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
-  }
   public onUpdateReservation(reservation: Reservation): void {
     this.reservationService.updateReservation(reservation).subscribe(
       (response: Reservation) => {
@@ -253,8 +295,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-
-
   public searchReservation(key: string): void {
     console.log(key);
     const results: Reservation[] = [];
@@ -269,65 +309,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-
-
-  public onOpenModalOrganization(organization: Organization, mode: string): void{
-    const container = document.getElementById('main-container')
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if(mode === 'add') {
-      button.setAttribute('data-target', '#addOrganizationModal');
-    }
-    if(mode === 'edit') {
-      this.editOrganization = organization;
-      button.setAttribute('data-target', '#updateOrganizationModal');
-    }
-    if(mode === 'delete') {
-      this.deleteOrganization = organization;
-      button.setAttribute('data-target', '#deleteOrganizationModal');
-    }
-    if(mode === 'roomList') {
-      this.listRoomOrganization = organization;
-      button.setAttribute('data-target', '#allOrganizationRoomModal');
-    }
-    if(mode === 'roomAdd') {
-     this.addRoomOrganization = organization;
-      button.setAttribute('data-target', '#addRoomModal');
-    }
-    if(mode === 'reservation') {
-      button.setAttribute('data-target', '#allReservationModal');
-    }
-    container.appendChild(button);
-    button.click();
-  }
-
-  public onOpenModalRoom(conferenceRoom: ConferenceRoom,   mode: string): void{
-    const container = document.getElementById('main-container')
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-
-    if(mode === 'addReservation') {
-      this.addReservationRoom = conferenceRoom;
-      button.setAttribute('data-target', '#addReservationModal');
-    }
-     if(mode === 'deleteRoom') {
-       this.deleteConferenceRoom = conferenceRoom;
-      button.setAttribute('data-target', '#deleteRoomModal');
-
-    }
-    if(mode === 'updateRoom') {
-      this.editConferenceRoom = conferenceRoom;
-      button.setAttribute('data-target', '#updateRoomModal');
-    }
-
-
-    container.appendChild(button);
-    button.click();
-  }
 
   public onOpenModalReservation(reservation: Reservation,   mode: string): void{
     const container = document.getElementById('main-container')
@@ -347,7 +328,5 @@ export class AppComponent implements OnInit {
     container.appendChild(button);
     button.click();
   }
-
-
 
 }

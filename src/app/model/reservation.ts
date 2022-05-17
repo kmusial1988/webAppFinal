@@ -2,7 +2,7 @@ export interface  Reservation {
   reservationId: number;
   reservationIdentifier: string;
   reservationStartDate: string;
-  ReservationEndDate: string;
+  reservationEndDate: string;
   conferenceRoomName: string;
   organizationName: string;
 }

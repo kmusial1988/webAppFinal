@@ -9,27 +9,23 @@ import { environment } from 'src/environments/environment';
 })
 export class ConferenceRoomService {
 
-  private apiRoomOrganizationUrl = environment.apiBaseUrl;
+  private apiRoomOrganizationUrl = environment.apiBaseUrl+"/conference-room";
 
   constructor(private http: HttpClient) { }
 
   public getRoom(): Observable<ConferenceRoom[]>{
-    return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}/conference-room`);
-  }
-
-  public getRoomByName(organizatonName: string): Observable<ConferenceRoom[]>{
-    return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}/conference-room/organization/${organizatonName}`);
+    return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}`);
   }
 
   public addRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
-    return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/add`, conferenceRoom);
+    return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/add`, conferenceRoom);
   }
 
   public updateRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
-    return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/update`, conferenceRoom);
+    return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/update`, conferenceRoom);
   }
 
   public deleteRoom(conferenceRoomId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/conference-room//delete/${conferenceRoomId}`);
+    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/delete/${conferenceRoomId}`);
   }
 }
