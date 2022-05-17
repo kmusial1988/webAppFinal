@@ -24,6 +24,7 @@
 <div class="container" id="main-container">
   <div class="candidates-list">
     <div *ngFor="let organization of organizations" class="candidate-list-details">
+
       <div class="card m-b-40">
         <div class="card-body row">
           <div class="col-6 card-title align-self-center mb-0">
@@ -215,6 +216,7 @@
                         </tr>
                         </thead>
                         <tbody *ngFor="let conferenceRoom of conferenceRooms">
+                        <ng-container *ngIf="conferenceRoom.organizationName === (roomOrganization?.organizationName)">
                         <tr>
                           <td><p>{{conferenceRoom?.organizationName}}</p></td>
                           <td ><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
@@ -234,6 +236,7 @@
                             </a>
                           </td>
                         </tr>
+                          </ng-container>
                         </tbody>
                       </table>
                     </div>
