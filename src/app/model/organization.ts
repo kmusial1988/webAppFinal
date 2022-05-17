@@ -1,5 +1,5 @@
 export interface Organization {
   organizationId: number;
-  nameOrganization: string;
+  organizationName: string;
   numberOfRooms: string;
 }

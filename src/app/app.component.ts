@@ -17,8 +17,9 @@ export class AppComponent implements OnInit {
   public organizations: Organization[];
   public editOrganization: Organization;
   public deleteOrganization: Organization;
+  public addRoomOrganization: Organization;
 
-  public conferenceRooms: ConferenceRoom[];
+  public conferenceRooms: Array<ConferenceRoom>;
   public editConferenceRoom: ConferenceRoom;
   public deleteConferenceRoom: ConferenceRoom;
 
@@ -96,7 +97,7 @@ export class AppComponent implements OnInit {
     console.log(key);
     const results: Organization[] = [];
     for (const organization of this.organizations) {
-      if (organization.nameOrganization.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      if (organization.organizationName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(organization);
       }
     }
@@ -121,9 +122,15 @@ export class AppComponent implements OnInit {
 
   }
 
+  getConferenceRoomsByOrganization(organization: string): ConferenceRoom[] {
+    console.log(this.conferenceRooms)
+   return  this.conferenceRooms.filter(r => r.organizationName === "organization")
+
+  }
 
   public onAddConferenceRoom(addForm: NgForm): void {
-    document.getElementById('add-room-form').click();
+    // document.getElementById('add-room-form').click();
+    console.log(addForm)
     this.conferenceRoomService.addRoom(addForm.value).subscribe(
       (response: ConferenceRoom) => {
         console.log(response);
@@ -136,6 +143,7 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
 
   public onUpdateConferenceRoom(conferenceRoom: ConferenceRoom): void {
     this.conferenceRoomService.updateRoom(conferenceRoom).subscribe(
@@ -249,7 +257,7 @@ export class AppComponent implements OnInit {
 
 
 
-  public onOpenModal(organization: Organization,  reservation: Reservation, conferenceRoom: ConferenceRoom, mode: string): void{
+  public onOpenModalOrganization(organization: Organization, mode: string): void{
     const container = document.getElementById('main-container')
     const button = document.createElement('button');
     button.type = 'button';
@@ -267,35 +275,58 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#deleteOrganizationModal');
     }
     if(mode === 'roomList') {
-      // TODO do zrobienia metoda
+      this.addRoomOrganization = organization;
       button.setAttribute('data-target', '#allOrganizationRoomModal');
     }
     if(mode === 'roomAdd') {
-      // TODO do zrobienia metoda
+     this.addRoomOrganization = organization;
       button.setAttribute('data-target', '#addRoomModal');
     }
-    if(mode === 'deleteRoom') {
-      // TODO do zrobienia metoda
-      button.setAttribute('data-target', '#deleteRoomModal');
-    }
-    if(mode === 'updateRoom') {
-      // TODO do zrobienia metoda
-      button.setAttribute('data-target', '#updateRoomModal');
-    }
     if(mode === 'reservation') {
-      // TODO do zrobienia metoda
       button.setAttribute('data-target', '#allReservationModal');
     }
+    container.appendChild(button);
+    button.click();
+  }
+
+  public onOpenModalRoom(conferenceRoom: ConferenceRoom,   mode: string): void{
+    const container = document.getElementById('main-container')
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
     if(mode === 'addReservation') {
       button.setAttribute('data-target', '#addReservationModal');
     }
+     if(mode === 'deleteRoom') {
+      button.setAttribute('data-target', '#deleteRoomModal');
+      // this.deleteConferenceRoom = conferenceRoom;
+    }
+    if(mode === 'updateRoom') {
+      this.editConferenceRoom = conferenceRoom;
+      button.setAttribute('data-target', '#updateRoomModal');
+    }
+
+
+    container.appendChild(button);
+    button.click();
+  }
+
+  public onOpenModalReservation(reservation: Reservation,   mode: string): void{
+    const container = document.getElementById('main-container')
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
     if(mode === 'updateReservation') {
-      // TODO do zrobienia metoda
+      this.editReservation = reservation;
       button.setAttribute('data-target', '#updateReservationModal');
     }
     if(mode === 'deleteReservation') {
-      // TODO do zrobienia metoda
       button.setAttribute('data-target', '#deleteReservationModal');
+      this.deleteReservation = reservation;
     }
     container.appendChild(button);
     button.click();
