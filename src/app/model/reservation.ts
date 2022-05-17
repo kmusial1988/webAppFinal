@@ -4,4 +4,5 @@ export interface  Reservation {
   reservationStartDate: string;
   ReservationEndDate: string;
   conferenceRoomName: string;
+  organizationName: string;
 }

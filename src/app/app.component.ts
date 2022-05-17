@@ -18,10 +18,14 @@ export class AppComponent implements OnInit {
   public editOrganization: Organization;
   public deleteOrganization: Organization;
   public addRoomOrganization: Organization;
+  public listRoomOrganization: Organization;
 
-  public conferenceRooms: Array<ConferenceRoom>;
+
+  public conferenceRooms: ConferenceRoom[];
+  public conferenceRoomsList: ConferenceRoom[];
   public editConferenceRoom: ConferenceRoom;
   public deleteConferenceRoom: ConferenceRoom;
+  public addReservationRoom: ConferenceRoom;
 
   public reservations: Reservation[];
   public editReservation: Reservation;
@@ -35,7 +39,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.getOrganizations();
     this.getConferenceRooms();
-    this.getReservations()
+    this.getReservations();
   }
 
   //Organizatio
@@ -122,14 +126,22 @@ export class AppComponent implements OnInit {
 
   }
 
-  getConferenceRoomsByOrganization(organization: string): ConferenceRoom[] {
-    console.log(this.conferenceRooms)
-   return  this.conferenceRooms.filter(r => r.organizationName === "organization")
+  public getConferenceRoomsListByOrganization(organizationName: string): void{
+    this.conferenceRoomService.getRoomByName(organizationName).subscribe(
+      (response: ConferenceRoom[]) => {
+        this.conferenceRoomsList = response;
+        console.log(this.conferenceRoomsList);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
 
   }
 
+
   public onAddConferenceRoom(addForm: NgForm): void {
-    // document.getElementById('add-room-form').click();
+    document.getElementById('add-room-form').click();
     console.log(addForm)
     this.conferenceRoomService.addRoom(addForm.value).subscribe(
       (response: ConferenceRoom) => {
@@ -143,6 +155,8 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
+
 
 
   public onUpdateConferenceRoom(conferenceRoom: ConferenceRoom): void {
@@ -175,7 +189,6 @@ export class AppComponent implements OnInit {
     console.log(key);
     const results: ConferenceRoom[] = [];
     for (const conferenceRoom of this.conferenceRooms) {
-
       if (conferenceRoom.conferenceRoomName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(conferenceRoom);
       }
@@ -199,6 +212,7 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
 
 
   public onAddReservation(addForm: NgForm): void {
@@ -275,7 +289,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#deleteOrganizationModal');
     }
     if(mode === 'roomList') {
-      this.addRoomOrganization = organization;
+      this.listRoomOrganization = organization;
       button.setAttribute('data-target', '#allOrganizationRoomModal');
     }
     if(mode === 'roomAdd') {
@@ -297,11 +311,13 @@ export class AppComponent implements OnInit {
     button.setAttribute('data-toggle', 'modal');
 
     if(mode === 'addReservation') {
+      this.addReservationRoom = conferenceRoom;
       button.setAttribute('data-target', '#addReservationModal');
     }
      if(mode === 'deleteRoom') {
+       this.deleteConferenceRoom = conferenceRoom;
       button.setAttribute('data-target', '#deleteRoomModal');
-      // this.deleteConferenceRoom = conferenceRoom;
+
     }
     if(mode === 'updateRoom') {
       this.editConferenceRoom = conferenceRoom;

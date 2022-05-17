@@ -17,6 +17,10 @@ export class ConferenceRoomService {
     return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}/conference-room`);
   }
 
+  public getRoomByName(organizatonName: string): Observable<ConferenceRoom[]>{
+    return this.http.get<ConferenceRoom[]>(`${this.apiRoomOrganizationUrl}/conference-room/organization/${organizatonName}`);
+  }
+
   public addRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
     return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/add`, conferenceRoom);
   }
@@ -25,7 +29,7 @@ export class ConferenceRoomService {
     return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/conference-room/update`, conferenceRoom);
   }
 
-  public deleteRoom(organizationId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/conference-room/delete/${organizationId}`);
+  public deleteRoom(conferenceRoomId: number): Observable<void>{
+    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/conference-room//delete/${conferenceRoomId}`);
   }
 }

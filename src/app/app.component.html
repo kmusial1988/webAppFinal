@@ -19,6 +19,8 @@
   </div>
 </nav>
 
+<!--  ALL ORGANIZATION LIST-->
+
 <div class="container" id="main-container">
   <div class="candidates-list">
     <div *ngFor="let organization of organizations" class="candidate-list-details">
@@ -49,7 +51,8 @@
   </div>
 
 
-  <!-- Add Organization Modal -->
+  <!-- Add Organization  -->
+
   <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="addOrganizationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -74,6 +77,63 @@
       </div>
     </div>
   </div>
+
+
+  <!--  allReservationModal-->
+
+  <div class="modal fade" id="allReservationModal" tabindex="-1" role="dialog" aria-labelledby="allReservationModalLabel" aria-hidden="true">
+    <div class="container mt-3 mb-4">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="container bootstrap snippets bootdey">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                  <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                      <table class="table user-list">
+                        <thead>
+                        <tr>
+                          <th><span>Organization Name</span></th>
+                          <th><span>Room Name</span></th>
+                          <th><span>Data start</span></th>
+                          <th><span>Data end</span></th>
+                          <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let reservation of reservations">
+                        <tr>
+                          <td><p>{{reservation?.organizationName}}</p></td>
+                          <td ><p>{{reservation?.conferenceRoomName}}</p></td>
+                          <td><p>{{reservation?.reservationStartDate}}</p></td>
+                          <td><p>{{reservation?.ReservationEndDate}}</p></td>
+
+                          <td style="width: 20%;">
+                            <a href="#" class="table-link  text-info">
+                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalReservation(reservation, 'updateReservation')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                            </a>
+                            <a href="#" class="table-link danger">
+                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalReservation(reservation, 'deleteReservation')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                            </a>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- Edit Modal -->
 
@@ -105,6 +165,27 @@
     </div>
   </div>
 
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Organization</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete organization {{deleteOrganization?.organizationName}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="onDeleteOrganization(deleteOrganization?.organizationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--  allOrganizationRoomModal-->
   <div class="modal fade" id="allOrganizationRoomModal" tabindex="-1" role="dialog" aria-labelledby="allOrganizationRoomModalLabel" aria-hidden="true">
     <div class="container mt-3 mb-4">
@@ -117,8 +198,14 @@
                 <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
                     <div class="candidate-list-details" class="table-responsive">
+                      <form class="form-inline my-2 my-lg-0">
+                        <input type="search" (ngModelChange)="searchConferenceRoom(key.value)" #key="ngModel" ngModel
+                               name="key" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..." required>
+                      </form>
                       <table class="table user-list">
+
                         <thead>
+
                         <tr>
                           <th><span>Organization Name</span></th>
                           <th><span>Room Name</span></th>
@@ -132,7 +219,8 @@
 
 
 
-                        <tbody *ngFor="let conferenceRoom of getConferenceRoomsByOrganization('Transporeon')">
+                        <tbody *ngFor="let conferenceRoom of conferenceRooms">
+
                         <tr>
                           <td><p>{{conferenceRoom?.organizationName}}</p></td>
                           <td ><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
@@ -141,9 +229,11 @@
                           <td><p>{{conferenceRoom?.sittingPlaces}}</p></td>
                           <td><p>{{conferenceRoom?.standingPlaces}}</p></td>
                           <td style="width: 20%;">
-                            <a href="#" class="table-link  text-warning">
 
-                              <a style="font-size: 2vh; margin: 1vh"  class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i> </a>
+
+                            <a href="#" class="table-link  text-info">
+                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'addReservation')" class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></a>
+
                             </a>
                             <a href="#" class="table-link  text-info">
                               <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'updateRoom')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
@@ -170,61 +260,8 @@
       </div>
     </div>
   </div>
-<!--  allReservationModal-->
 
-  <div class="modal fade" id="allReservationModal" tabindex="-1" role="dialog" aria-labelledby="allReservationModalLabel" aria-hidden="true">
-    <div class="container mt-3 mb-4">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="container bootstrap snippets bootdey">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="main-box no-header clearfix">
-                  <div class="main-box-body clearfix">
-                    <div class="table-responsive">
-                      <table class="table user-list">
-                        <thead>
-                        <tr>
-                          <th><span>Organization Name</span></th>
-                          <th><span>Room Name</span></th>
-                          <th><span>Data start</span></th>
-                          <th><span>Data end</span></th>
-                          <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                          <td>Nazwa Organizacji</td>
-                          <td>Nazwa Pokoju</td>
-                          <td>20.20.2022</td>
-                          <td>20.20.2024</td>
-
-                          <td style="width: 20%;">
-                            <a href="#" class="table-link  text-info">
-                              <a style="font-size: 2vh; margin: 1vh"  class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                            </a>
-                            <a href="#" class="table-link danger">
-                              <a style="font-size: 2vh; margin: 1vh"  class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-                            </a>
-                          </td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<!--  roomAdd-->
+  <!--  roomAdd-->
   <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="roomAddModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -236,14 +273,13 @@
         </div>
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddConferenceRoom(addForm)">
-
             <div class="form-group">
               <label for="conferenceRoomName">conferenceRoomName</label>
               <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName" placeholder="conferenceRoomName" required>
             </div>
             <div class="form-group">
-<!--              <label for="organizationName">organizationName</label>-->
-              <input type="hidden" ngModel="{{addRoomOrganization?.organizationName}}" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required>
+              <label for="organizationNameRoom">organizationName</label>
+              <input type="text" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required>
             </div>
             <div class="form-group">
               <label for="availability">availability</label>
@@ -261,10 +297,9 @@
               <label for="standingPlaces">standingPlaces</label>
               <input type="text" ngModel name="standingPlaces" class="form-control" id="standingPlaces" placeholder="standingPlaces" required>
             </div>
-
             <div class="modal-footer">
-              <button  type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button  type="submit"  class="btn btn-primary" >Save !!!</button>
+              <button type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
         </div>
@@ -272,7 +307,7 @@
     </div>
   </div>
 
-  <!--  room Reservation-->
+  <!-- Add reservation Modal -->
   <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="addReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -285,23 +320,23 @@
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
             <div class="form-group">
-              <label for="organizationName">organizationName</label>
-              <input type="text" ngModel name="organizationName" class="form-control" id="organizationNameReservation" placeholder="organizationName" required>
+              <label for="organizationNameReservation">Name</label>
+              <input type="text" ngModel name="organizationName" class="form-control" id="organizationNameReservation" placeholder="Name Organization" required>
             </div>
             <div class="form-group">
-              <label for="conferenceRoomName">conferenceRoomName</label>
-              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
+              <label for="conferenceRoomNameReservation">conferenceRoomName</label>
+              <input type="text"  name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
             </div>
             <div class="form-group">
-              <label for="level">reservationStartDate</label>
-              <input type="text" ngModel name="reservationStartDate" class="form-control" id="reservationStartDate" placeholder="level" required>
+              <label for="reservationStartDateReservation">reservationStartDate</label>
+              <input type="text" ngModel name="reservationStartDate" class="form-control" id="reservationStartDateReservation" placeholder="Name Organization" required>
             </div>
             <div class="form-group">
-              <label for="sittingPlaces">ReservationEndDate</label>
-              <input type="text" ngModel name="reservationEndDate" class="form-control" id="ReservationEndDate" placeholder="sittingPlaces" required>
+              <label for="ReservationEndDateReservation">ReservationEndDate</label>
+              <input type="text" ngModel name="ReservationEndDate" class="form-control" id="ReservationEndDateReservation" placeholder="Name Organization" required>
             </div>
             <div class="modal-footer">
-              <button  type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
@@ -354,27 +389,7 @@
       </div>
     </div>
   </div>
-<!--  delete Reservation-->
 
-  <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteReservationModalLabel">Delete Room</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to delete reservation ?{{deleteReservation?.reservationIdentifier}}</p>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onDeleteReservation(deleteReservation?.reservationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 <!--delete Room-->
 
@@ -399,26 +414,32 @@
   </div>
 
 
-  <!-- Delete Modal -->
-  <div class="modal fade" id="deleteOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+
+
+
+  <!--  delete Reservation-->
+
+  <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModelLabel">Delete Organization</h5>
+          <h5 class="modal-title" id="deleteReservationModalLabel">Delete Room</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to delete organization {{deleteOrganization?.organizationName}}?</p>
+          <p>Are you sure you want to delete reservation ?{{deleteReservation?.reservationIdentifier}}</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onDeleteOrganization(deleteOrganization?.organizationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="onDeleteReservation(deleteReservation?.reservationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 </div>
 
 
