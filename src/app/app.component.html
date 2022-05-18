@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" style="color:white;">Organization Manager</a>
+  <a class="navbar-brand" style="color:white; padding: 2vh">Reservation conference room Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization <span class="sr-only">(current)</span></a>
+        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation <span class="sr-only">(current)</span></a>
+        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -106,15 +106,17 @@
 
                         <thead>
                         <tr>
-                          <th><span>Organization Name</span></th>
-                          <th><span>Room Name</span></th>
-                          <th><span>Data start</span></th>
-                          <th><span>Data end</span></th>
+                          <th><span>Reservation name</span></th>
+                          <th><span>Organization name</span></th>
+                          <th><span>Room name</span></th>
+                          <th><span>Start reservation</span></th>
+                          <th><span>End reservation</span></th>
                           <th>&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody *ngFor="let reservation of reservations">
                         <tr>
+                          <td><p>{{reservation?.reservationIdentifier}}</p></td>
                           <td><p>{{reservation?.organizationName}}</p></td>
                           <td ><p>{{reservation?.conferenceRoomName}}</p></td>
                           <td><p>{{reservation?.reservationStartDate}}</p></td>
@@ -151,7 +153,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Organization {{editOrganization?.organizationName}}</h5>
+          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit organization {{editOrganization?.organizationName}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -159,8 +161,8 @@
         <div class="modal-body">
           <form #editForm="ngForm">
             <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" ngModel="{{editOrganization?.organizationName}}" name="organizationName" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+              <label for="name">Name organization to edit</label>
+              <input type="text" ngModel="{{editOrganization?.organizationName}}" name="organizationName" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name organization">
             </div>
             <input type="hidden" ngModel="{{editOrganization?.organizationId}}" name="organizationId" class="form-control" id="organizationId" placeholder="id">
             <input type="hidden" ngModel="{{editOrganization?.numberOfRooms}}" name="numberOfRooms" class="form-control" id="numberOfRooms" placeholder="Email">
@@ -209,20 +211,25 @@
                 <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
 <!--                    class="candidate-list-details"-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <form class="form-inline my-2 my-lg-0">
+                      <input type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
+                             name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..." required>
+                    </form>
                     <div  class="table-responsive">
-                      <form class="form-inline my-2 my-lg-0">
-                        <input type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
-                               name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..." required>
-                      </form>
+
+
                       <table class="table user-list">
                         <thead>
                         <tr>
-                          <th><span>Organization Name</span></th>
-                          <th><span>Room Name</span></th>
+                          <th><span>Organization name</span></th>
+                          <th><span>Room name</span></th>
                           <th><span>Availability</span></th>
                           <th><span>Level</span></th>
-                          <th><span>Sitting Places</span></th>
-                          <th><span>Standing Places</span></th>
+                          <th><span>Sitting places</span></th>
+                          <th><span>Standing places</span></th>
                           <th>&nbsp;</th>
                         </tr>
                         </thead>
@@ -276,28 +283,29 @@
         <div class="modal-body">
           <form #addFormRoom="ngForm" (ngSubmit)="onAddConferenceRoom(addFormRoom)">
             <div class="form-group">
-              <label for="conferenceRoomName">conferenceRoomName</label>
-              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName" placeholder="conferenceRoomName" required>
+              <label for="organizationNameRoom">Organization Name</label>
+              <input type="text" ngModel="{{addRoomWithOrganization?.organizationName}}" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required readonly>
             </div>
             <div class="form-group">
-              <label for="organizationNameRoom">organizationName</label>
-              <input type="text" ngModel="{{addRoomWithOrganization?.organizationName}}" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required>
+              <label for="conferenceRoomName">Conference room name</label>
+              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName" placeholder="Conference room nam" required>
             </div>
+
             <div class="form-group">
 <!--              <label for="availability">availability</label>-->
               <input type="hidden" ngModel="YES" name="availability" class="form-control" id="availability" placeholder="availability" required>
             </div>
             <div class="form-group">
-              <label for="level">level</label>
-              <input type="text" ngModel name="level" class="form-control" id="level" placeholder="level" required>
+              <label for="level">Level</label>
+              <input type="number" ngModel name="level" class="form-control" id="level" placeholder="Level" required>
             </div>
             <div class="form-group">
-              <label for="sittingPlaces">sittingPlaces</label>
-              <input type="text" ngModel name="sittingPlaces" class="form-control" id="sittingPlaces" placeholder="sittingPlaces" required>
+              <label for="sittingPlaces">Sitting places</label>
+              <input type="number" ngModel name="sittingPlaces" class="form-control" id="sittingPlaces" placeholder="Sitting places" required>
             </div>
             <div class="form-group">
-              <label for="standingPlaces">standingPlaces</label>
-              <input type="text" ngModel name="standingPlaces" class="form-control" id="standingPlaces" placeholder="standingPlaces" required>
+              <label for="standingPlaces">Standing places</label>
+              <input type="number" ngModel name="standingPlaces" class="form-control" id="standingPlaces" placeholder="Standing places" required>
             </div>
             <div class="modal-footer">
               <button type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -323,7 +331,7 @@
           <form #addFormReservation="ngForm" (ngSubmit)="onAddReservation(addFormReservation)">
             <div class="form-group">
               <label for="conferenceRoomNameReservation">Conference Room Name</label>
-              <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
+              <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required readonly>
             </div>
             <div class="form-group">
               <label for="reservationIdentifierReservation">Name Reservation</label>
@@ -352,7 +360,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateRoomModalLabel">Edit Room {{editConferenceRoom?.conferenceRoomName}}</h5>
+          <h5 class="modal-title" id="updateRoomModalLabel">Edit room {{editConferenceRoom?.conferenceRoomName}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -360,26 +368,26 @@
         <div class="modal-body">
           <form #editFormRoom="ngForm">
             <div class="form-group">
-              <label for="conferenceRoomNameEdit">conferenceRoomName</label>
-              <input type="text" ngModel="{{editConferenceRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameEdit" aria-describedby="emailHelp" placeholder="conferenceRoomName">
+              <label for="conferenceRoomNameEdit">Conference room name</label>
+              <input type="text" ngModel="{{editConferenceRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameEdit" aria-describedby="emailHelp" placeholder="conferenceRoomName" readonly>
             </div>
             <input type="hidden" ngModel="{{editConferenceRoom?.organizationName}}" name="organizationName" class="form-control" id="organizationNameEdit" placeholder="organizationName">
             <input type="hidden" ngModel="{{editConferenceRoom?.conferenceRoomId}}"  name="conferenceRoomId" class="form-control" id="conferenceRoomIdEdit" placeholder="organizationName">
             <div class="form-group">
-              <label for="availability">availability</label>
-              <input type="text" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control" id="availabilityEdit" placeholder="level">
+<!--              <label for="availability">Availability</label>-->
+              <input type="hidden" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control" id="availabilityEdit" placeholder="">
             </div>
             <div class="form-group">
-              <label for="levelEdit">level</label>
-              <input type="text" ngModel="{{editConferenceRoom?.level}}" name="level" class="form-control" id="levelEdit" placeholder="level">
+              <label for="levelEdit">Level</label>
+              <input type="number" ngModel="{{editConferenceRoom?.level}}" name="level" class="form-control" id="levelEdit" placeholder="Level">
             </div>
             <div class="form-group">
-              <label for="sittingPlacesEdit">sittingPlaces</label>
-              <input type="text" ngModel="{{editConferenceRoom?.sittingPlaces}}" name="sittingPlaces" class="form-control" id="sittingPlacesEdit" placeholder="sittingPlaces">
+              <label for="sittingPlacesEdit">Sitting places</label>
+              <input type="number" ngModel="{{editConferenceRoom?.sittingPlaces}}" name="sittingPlaces" class="form-control" id="sittingPlacesEdit" placeholder="Sitting places">
             </div>
             <div class="form-group">
-              <label for="standingPlacesEdit">standingPlaces</label>
-              <input type="text" ngModel="{{editConferenceRoom?.standingPlaces}}" name="standingPlaces" class="form-control" id="standingPlacesEdit" placeholder="standingPlaces">
+              <label for="standingPlacesEdit">Standing places</label>
+              <input type="number" ngModel="{{editConferenceRoom?.standingPlaces}}" name="standingPlaces" class="form-control" id="standingPlacesEdit" placeholder="Standing places">
             </div>
 
             <div class="modal-footer">
@@ -421,7 +429,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateReservationModalLabel">Edit Reservation </h5>
+          <h5 class="modal-title" id="updateReservationModalLabel">Edit Reservation {{editReservation?.reservationIdentifier}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -435,11 +443,11 @@
 
 
             <div class="form-group">
-              <label for="reservationStartDateReservationEdit">reservationStartDate</label>
+              <label for="reservationStartDateReservationEdit">Reservation start</label>
               <input type="datetime-local" ngModel="{{editReservation?.reservationStartDate}}" name="reservationStartDate" class="form-control" id="reservationStartDateReservationEdit" placeholder="reservationStartDate">
             </div>
             <div class="form-group">
-              <label for="reservationEndDateReservationEdit">reservationEndDate</label>
+              <label for="reservationEndDateReservationEdit">Reservation end</label>
               <input type="datetime-local" ngModel="{{editReservation?.reservationEndDate}}" name="reservationEndDate" class="form-control" id="reservationEndDateReservationEdit" placeholder="reservationEndDate">
             </div>
             <div class="modal-footer">
@@ -464,7 +472,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to delete reservation ?{{deleteReservation?.reservationIdentifier}}</p>
+          <p>Are you sure you want to delete reservation {{deleteReservation?.reservationIdentifier}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             <button (click)="onDeleteReservation(deleteReservation?.reservationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
