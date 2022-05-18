@@ -17,11 +17,12 @@ export class ReservationService {
   }
 
   public addReservation(reservation: Reservation): Observable<Reservation>{
+    console.log(reservation)
     return this.http.post<Reservation>(`${this.apiReservationUrl}/add`, reservation);
   }
 
   public updateReservation(reservation: Reservation): Observable<Reservation>{
-    return this.http.put<Reservation>(`${this.apiReservationUrl}/update`, reservation);
+    return this.http.put<Reservation>(`${this.apiReservationUrl}/update/`, reservation);
   }
 
   public deleteReservation(reservationId: number): Observable<void>{
