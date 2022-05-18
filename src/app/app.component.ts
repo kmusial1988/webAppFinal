@@ -229,16 +229,16 @@ export class AppComponent implements OnInit {
   }
 
 
-  public searchConferenceRoom(key: string): void {
-    console.log(key);
+  public searchConferenceRoom(keyRoom: string): void {
+    console.log(keyRoom);
     const results: ConferenceRoom[] = [];
     for (const conferenceRoom of this.conferenceRooms) {
-      if (conferenceRoom.conferenceRoomName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      if (conferenceRoom.conferenceRoomName.toLowerCase().indexOf(keyRoom.toLowerCase()) !== -1) {
         results.push(conferenceRoom);
       }
     }
     this.conferenceRooms = results;
-    if (results.length === 0 || !key) {
+    if (results.length === 0 || !keyRoom) {
       this.getConferenceRooms();
     }
   }
@@ -295,16 +295,18 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public searchReservation(key: string): void {
-    console.log(key);
+  public searchReservation(keyReservation: string): void {
+    console.log(keyReservation);
     const results: Reservation[] = [];
     for (const reservation of this.reservations) {
-      if (reservation.reservationIdentifier.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      if (reservation.conferenceRoomName.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1
+      || reservation.reservationIdentifier.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1)
+      {
         results.push(reservation);
       }
     }
     this.reservations = results;
-    if (results.length === 0 || !key) {
+    if (results.length === 0 || !keyReservation) {
       this.getReservations();
     }
   }
