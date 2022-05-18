@@ -166,17 +166,17 @@ export class AppComponent implements OnInit {
       this.deleteOrganization = organization;
       button.setAttribute('data-target', '#deleteOrganizationModal');
     }
-    //TODO
+
     if(mode === 'roomList') {
       this.roomOrganization = organization;
       button.setAttribute('data-target', '#allOrganizationRoomModal');
     }
-    //TODO
+
     if(mode === 'roomAdd') {
       this.addRoomWithOrganization = organization;
       button.setAttribute('data-target', '#addRoomModal');
     }
-    //TODO
+
     if(mode === 'reservation') {
       this.reservationOrganization = organization;
       button.setAttribute('data-target', '#allReservationModal');
@@ -327,6 +327,8 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#deleteReservationModal');
       this.deleteReservation = reservation;
     }
+
+
     container.appendChild(button);
     button.click();
   }
