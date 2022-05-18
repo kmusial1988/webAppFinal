@@ -263,7 +263,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #addForm="ngForm" (ngSubmit)="onAddConferenceRoom(addForm)">
+          <form #addFormRoom="ngForm" (ngSubmit)="onAddConferenceRoom(addFormRoom)">
             <div class="form-group">
               <label for="conferenceRoomName">conferenceRoomName</label>
               <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName" placeholder="conferenceRoomName" required>
@@ -290,7 +290,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+              <button [disabled]="addFormRoom.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
         </div>
@@ -309,7 +309,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #addForm="ngForm" (ngSubmit)="onAddReservation(addForm)">
+          <form #addFormReservation="ngForm" (ngSubmit)="onAddReservation(addFormReservation)">
             <div class="form-group">
               <label for="conferenceRoomNameReservation">conferenceRoomName</label>
               <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required>
@@ -324,7 +324,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+              <button [disabled]="addFormReservation.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
             </div>
           </form>
         </div>
@@ -343,7 +343,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #editForm="ngForm">
+          <form #editFormRoom="ngForm">
             <div class="form-group">
               <label for="conferenceRoomNameEdit">conferenceRoomName</label>
               <input type="text" ngModel="{{editConferenceRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameEdit" aria-describedby="emailHelp" placeholder="conferenceRoomName">
@@ -351,7 +351,7 @@
             <input type="hidden" ngModel="{{editConferenceRoom?.organizationName}}" name="organizationName" class="form-control" id="organizationNameEdit" placeholder="organizationName">
             <input type="hidden" ngModel="{{editConferenceRoom?.conferenceRoomId}}"  name="conferenceRoomId" class="form-control" id="conferenceRoomIdEdit" placeholder="organizationName">
             <div class="form-group">
-              <label for="availability">level</label>
+              <label for="availability">availability</label>
               <input type="text" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control" id="availabilityEdit" placeholder="level">
             </div>
             <div class="form-group">
@@ -369,7 +369,7 @@
 
             <div class="modal-footer">
               <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button  (click)="onUpdateConferenceRoom(editForm.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              <button  (click)="onUpdateConferenceRoom(editFormRoom.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
             </div>
           </form>
         </div>
@@ -412,7 +412,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #editForm="ngForm">
+          <form #editFormReservation="ngForm">
             <input type="hidden" ngModel="{{editReservation?.reservationId}}" name="reservationId" class="form-control" id="reservationIdReservationEdit" placeholder="reservationId">
             <input type="hidden" ngModel="{{editReservation?.reservationIdentifier}}"  name="reservationIdentifier" class="form-control" id="reservationIdentifierReservationEdit" placeholder="reservationIdentifier">
             <input type="hidden" ngModel="{{editReservation?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservationEdit" placeholder="conferenceRoomName">
@@ -427,7 +427,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button  (click)="onUpdateConferenceRoom(editForm.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              <button  (click)="onUpdateConferenceRoom(editFormReservation.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
             </div>
           </form>
         </div>

@@ -121,18 +121,18 @@ export class AppComponent implements OnInit {
 
   }
 
-  public onAddConferenceRoom(addForm: NgForm): void {
+  public onAddConferenceRoom(addFormRoom: NgForm): void {
     document.getElementById('add-room-form').click();
-    console.log(addForm)
-    this.conferenceRoomService.addRoom(addForm.value).subscribe(
+    console.log(addFormRoom)
+    this.conferenceRoomService.addRoom(addFormRoom.value).subscribe(
       (response: ConferenceRoom) => {
         console.log(response);
         this.getConferenceRooms();
-        addForm.reset();
+        addFormRoom.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addForm.reset();
+        addFormRoom.reset();
       }
     );
   }
@@ -189,17 +189,17 @@ export class AppComponent implements OnInit {
 
   //ConferenceRoom
 
-  public onAddReservation(addForm: NgForm): void {
+  public onAddReservation(addFormReservation: NgForm): void {
     document.getElementById('add-reservation-form').click();
-    this.reservationService.addReservation(addForm.value).subscribe(
+    this.reservationService.addReservation(addFormReservation.value).subscribe(
       (response: Reservation) => {
         console.log(response);
         this.getReservations();
-        addForm.reset();
+        addFormReservation.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addForm.reset();
+        addFormReservation.reset();
       }
     );
   }

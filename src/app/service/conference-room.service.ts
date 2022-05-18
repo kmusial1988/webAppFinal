@@ -22,6 +22,7 @@ export class ConferenceRoomService {
   }
 
   public updateRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
+    console.log(conferenceRoom)
     return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/update`, conferenceRoom);
   }
 
