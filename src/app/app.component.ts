@@ -268,6 +268,7 @@ export class AppComponent implements OnInit {
   }
 
   //Reservation
+  NO: string = "NO";
 
 
 
@@ -332,5 +333,41 @@ export class AppComponent implements OnInit {
     container.appendChild(button);
     button.click();
   }
+
+  public printReportDocx(): void {
+    let dataType = 'application/vnd.ms-excel.sheet.macroEnabled.12';
+    let tableSelect = document.getElementById('reportRooms');
+    let tableHtml = tableSelect.outerHTML.replace(/ /g, '%20');
+    let downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+    downloadLink.href = 'data:' + dataType + ', '+ tableHtml;
+    downloadLink.download = 'reportRoom.docx';
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+  }
+
+  public printReportPdf(): void{
+    window.print();
+  }
+
+  public printReportReservationDocx(): void {
+    let dataType = 'application/vnd.ms-excel.sheet.macroEnabled.12';
+    let tableSelect = document.getElementById('reportReservation');
+    let tableHtml = tableSelect.outerHTML.replace(/ /g, '%20');
+    let downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+    downloadLink.href = 'data:' + dataType + ', '+ tableHtml;
+    downloadLink.download = 'reportReservation.docx';
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+  }
+
+  public printReportReservationPdf(): void{
+    window.print();
+  }
+
+
 
 }

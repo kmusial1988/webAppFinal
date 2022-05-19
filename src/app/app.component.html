@@ -27,7 +27,6 @@
 <div class="container" id="main-container">
   <div class="candidates-list">
     <div *ngFor="let organization of organizations" class="candidate-list-details">
-<!--TODO zmiana wysokości -->
       <div class="card m-b-40" style="">
         <div class="card-body row">
           <div class="col-10 card-title align-self-center mb-0">
@@ -46,16 +45,16 @@
         </div>
         <div style="margin-top: 75px" class="card-body">
           <div class="float-right btn-group btn-group-sm" style="font-size: 50px">
-            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'edit')"
+            <a title="Edit" style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'edit')"
                class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i style="padding: 7px"
               class="fa fa-pencil"></i> </a>
-            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'delete')"
+            <a title="Delete" style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'delete')"
                class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i style="padding: 7px"
               class="fa fa-trash"></i></a>
-            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomList')"
+            <a title="List room's" style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomList')"
                class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i style="padding: 7px"
               class="fa fa-list"></i> </a>
-            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomAdd')"
+            <a title="Add room" style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomAdd')"
                class="btn btn-secondary tooltips" data-placement="top" data-original-title="roomAdd"><i style="padding: 7px"
               class="fa fa-plus"></i></a>
           </div>
@@ -84,6 +83,7 @@
               <input type="text" ngModel name="organizationName" class="form-control" id="organizationName"
                      placeholder="Name Organization" required>
             </div>
+
             <div class="modal-footer">
               <button type="button" id="add-organization-form" class="btn btn-secondary" data-dismiss="modal">Close
               </button>
@@ -111,16 +111,18 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" >
                       <h2>Reservation</h2>
-                      <input style="margin-left: 450px; margin-bottom: 15px" type="search" (ngModelChange)="searchReservation(keyReservation.value)"
+                      <button style="margin-left: 200px; margin-bottom: 15px" (click)="printReportReservationDocx()" type="button" class="btn btn-primary">Report Doc</button>
+                      <button style="margin-left: 50px; margin-bottom: 15px" (click)="printReportReservationPdf()" type="button" class="btn btn-primary">Report Pdf</button>
+                      <input style="margin-left: 50px; margin-bottom: 15px" type="search" (ngModelChange)="searchReservation(keyReservation.value)"
                              #keyReservation="ngModel" ngModel
                              name="keyReservation" id="searchNameReservation" class="form-control mr-sm-2"
                              placeholder="Search reservation..." required>
                     </form>
                     <div class="table-responsive">
 
-                      <table class="table user-list">
+                      <table class="table user-list" id="reportReservation">
 
                         <thead>
                         <tr>
@@ -142,13 +144,13 @@
 
                           <td style="width: 20%;">
                             <a href="#" class="table-link  text-info">
-                              <a style="font-size: 20px; margin: 10px"
+                              <a title="Edit" style="font-size: 20px; margin: 10px"
                                  (click)="onOpenModalReservation(reservation, 'updateReservation')"
                                  class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i
                                 class="fa fa-pencil"></i> </a>
                             </a>
                             <a href="#" class="table-link danger">
-                              <a style="font-size: 20px; margin: 10px"
+                              <a title="Delete" style="font-size: 20px; margin: 10px"
                                  (click)="onOpenModalReservation(reservation, 'deleteReservation')"
                                  class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i
                                 class="fa fa-trash"></i></a>
@@ -175,7 +177,7 @@
   <div class="modal fade" id="updateOrganizationModal" tabindex="-1" role="dialog"
        aria-labelledby="organizationEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content" >
         <div class="modal-header">
           <h5 class="modal-title" id="updateEmployeeModalLabel">Edit
             organization {{editOrganization?.organizationName}}</h5>
@@ -248,14 +250,16 @@
 
             <form class="form-inline my-2 my-lg-0">
               <h2 >Conference room</h2>
-              <input style="margin-left: 450px; margin-bottom: 15px" type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
+              <button style="margin-left: 150px; margin-bottom: 15px" (click)="printReportDocx()" type="button" class="btn btn-primary">Report Doc</button>
+              <button style="margin-left: 50px; margin-bottom: 15px" (click)="printReportPdf()" type="button" class="btn btn-primary">Report Pdf</button>
+              <input style="margin-left: 50px; margin-bottom: 15px" type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
                      name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search room's..."
                      required>
             </form>
             <div class="table-responsive">
 
 
-              <table class="table user-list">
+              <table class="table user-list" id="reportRooms">
                 <thead>
                 <tr style="font-size: 18px">
                   <th><span>Organization name</span></th>
@@ -280,17 +284,17 @@
                     <td style="width: 20%;">
 
                       <a href="#" class="table-link  text-info">
-                        <a style="font-size: 15px; margin: 10px"
+                        <button title="Add reservation" [disabled]=" conferenceRoom.availability === NO " style="font-size: 15px; margin: 10px"
                            (click)="onOpenModalRoom(conferenceRoom, 'addReservation')" class="btn btn-primary tooltips"
-                           data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></a>
+                           data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></button>
                       </a>
 
-                      <a href="#" class="table-link  text-info">
+                      <a title="Edit" href="#" class="table-link  text-info">
                         <a style="font-size: 15px; margin: 10px" (click)="onOpenModalRoom(conferenceRoom, 'updateRoom')"
                            class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i
                           class="fa fa-pencil"></i> </a>
                       </a>
-                      <a href="#" class="table-link danger">
+                      <a title="Delete" href="#" class="table-link danger">
                         <a style="font-size: 15px; margin: 10px" (click)="onOpenModalRoom(conferenceRoom, 'deleteRoom')"
                            class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i
                           class="fa fa-trash"></i></a>
@@ -431,8 +435,11 @@
                    class="form-control" id="conferenceRoomIdEdit" placeholder="organizationName">
             <div class="form-group">
               <label for="availability">Availability</label>
-              <input type="text" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control"
-                     id="availabilityEdit" placeholder="">
+              <select name="availability" ngModel="{{editConferenceRoom?.availability}}" class="form-control" required>
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+
             </div>
             <div class="form-group">
               <label for="levelEdit">Level</label>
