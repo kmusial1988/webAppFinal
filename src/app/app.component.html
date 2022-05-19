@@ -1,15 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" style="color:white; padding: 2vh">Reservation conference room Manager</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+          aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization <span class="sr-only">(current)</span></a>
+        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization
+          <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation <span class="sr-only">(current)</span></a>
+        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation
+          <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -24,27 +27,38 @@
 <div class="container" id="main-container">
   <div class="candidates-list">
     <div *ngFor="let organization of organizations" class="candidate-list-details">
-
-      <div class="card m-b-40">
+<!--TODO zmiana wysokości -->
+      <div class="card m-b-40" style="">
         <div class="card-body row">
-          <div class="col-6 card-title align-self-center mb-0">
-            <div class="col-6 card-title align-self-center mb-0">
-              <h4 style="margin-left: 1vw">Name: {{ organization?.organizationName}}</h4>
+          <div class="col-8 card-title align-self-center mb-0">
+            <div class="col-8 card-title align-self-center mb-0">
+              <h4 style="margin: 15px; font-size: 30px"><span style="font-size: 25px; margin-bottom: 10px">Name:</span> <br> {{ organization?.organizationName}}</h4>
             </div>
             <div class="candidate-list-option">
-              <ul class="list-unstyled" >
-                <li style="font-size: 3vh"><i class="fas fa-filter pr-1"></i>Numbers of Room : </li><i class="fa-thin fa-file-plus"></i>
-                <li style="font-size: 3vh"><i class="fas fa-map-marker-alt pr-1"></i>{{ organization?.numberOfRooms }}</li>
+              <ul class="list-unstyled">
+                <li style="font-size: 20px"><i class="fas fa-filter pr-1"></i>Numbers of Room :</li>
+
+                <i class="fa-thin fa-file-plus"></i>
+                <li style="font-size: 20px"><i class="fas fa-map-marker-alt pr-1"></i>{{ organization?.numberOfRooms }}
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <div class="float-right btn-group btn-group-sm" style="font-size: 5vh">
-            <a style="font-size: 5vh; margin: 1vh" (click)="onOpenModalOrganization(organization, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-            <a style="font-size: 5vh; margin: 1vh" (click)="onOpenModalOrganization(organization, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-            <a style="font-size: 5vh; margin: 1vh" (click)="onOpenModalOrganization(organization, 'roomList')" class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i class="fa fa-list"></i> </a>
-            <a style="font-size: 5vh; margin: 1vh" (click)="onOpenModalOrganization(organization, 'roomAdd')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="roomAdd"><i class="fa fa-plus"></i></a>
+          <div class="float-right btn-group btn-group-sm" style="font-size: 50px">
+            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'edit')"
+               class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i
+              class="fa fa-pencil"></i> </a>
+            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'delete')"
+               class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i
+              class="fa fa-trash"></i></a>
+            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'roomList')"
+               class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i
+              class="fa fa-list"></i> </a>
+            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'roomAdd')"
+               class="btn btn-secondary tooltips" data-placement="top" data-original-title="roomAdd"><i
+              class="fa fa-plus"></i></a>
           </div>
         </div>
       </div>
@@ -54,7 +68,8 @@
 
   <!-- Add Organization  -->
 
-  <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="addOrganizationModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog"
+       aria-labelledby="addOrganizationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -67,11 +82,13 @@
           <form #addForm="ngForm" (ngSubmit)="onAddOrganization(addForm)">
             <div class="form-group">
               <label for="organizationName">Name</label>
-              <input type="text" ngModel name="organizationName" class="form-control" id="organizationName" placeholder="Name Organization" required>
+              <input type="text" ngModel name="organizationName" class="form-control" id="organizationName"
+                     placeholder="Name Organization" required>
             </div>
             <div class="modal-footer">
-              <button type="button" id="add-organization-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+              <button type="button" id="add-organization-form" class="btn btn-secondary" data-dismiss="modal">Close
+              </button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save !!!</button>
             </div>
           </form>
         </div>
@@ -83,9 +100,8 @@
   <!--  allReservationModal-->
 
 
-
-  <div class="modal fade" id="allReservationModal" tabindex="-1" role="dialog" aria-labelledby="allReservationModalLabel" aria-hidden="true">
-    <div class="container mt-3 mb-4">
+    <div class="modal fade" id="allReservationModal" tabindex="-1" role="dialog" aria-labelledby="allReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog " style="max-width: 1100px;" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <div class="container bootstrap snippets bootdey">
@@ -97,8 +113,11 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                     <form class="form-inline my-2 my-lg-0">
-                      <input type="search" (ngModelChange)="searchReservation(keyReservation.value)" #keyReservation="ngModel" ngModel
-                             name="keyReservation" id="searchNameReservation" class="form-control mr-sm-2" placeholder="Search reservation..." required>
+                      <h2>Reservation</h2>
+                      <input style="margin-left: 450px; margin-bottom: 15px" type="search" (ngModelChange)="searchReservation(keyReservation.value)"
+                             #keyReservation="ngModel" ngModel
+                             name="keyReservation" id="searchNameReservation" class="form-control mr-sm-2"
+                             placeholder="Search reservation..." required>
                     </form>
                     <div class="table-responsive">
 
@@ -118,16 +137,22 @@
                         <tr>
                           <td><p>{{reservation?.reservationIdentifier}}</p></td>
                           <td><p>{{reservation?.organizationName}}</p></td>
-                          <td ><p>{{reservation?.conferenceRoomName}}</p></td>
+                          <td><p>{{reservation?.conferenceRoomName}}</p></td>
                           <td><p>{{reservation?.reservationStartDate}}</p></td>
                           <td><p>{{reservation?.reservationEndDate}}</p></td>
 
                           <td style="width: 20%;">
                             <a href="#" class="table-link  text-info">
-                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalReservation(reservation, 'updateReservation')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                              <a style="font-size: 20px; margin: 10px"
+                                 (click)="onOpenModalReservation(reservation, 'updateReservation')"
+                                 class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i
+                                class="fa fa-pencil"></i> </a>
                             </a>
                             <a href="#" class="table-link danger">
-                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalReservation(reservation, 'deleteReservation')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                              <a style="font-size: 20px; margin: 10px"
+                                 (click)="onOpenModalReservation(reservation, 'deleteReservation')"
+                                 class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i
+                                class="fa fa-trash"></i></a>
                             </a>
                           </td>
                         </tr>
@@ -146,14 +171,15 @@
   </div>
 
 
-
   <!-- Edit Modal -->
 
-  <div class="modal fade" id="updateOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="organizationEditModalLabel" aria-hidden="true">
+  <div class="modal fade" id="updateOrganizationModal" tabindex="-1" role="dialog"
+       aria-labelledby="organizationEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit organization {{editOrganization?.organizationName}}</h5>
+          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit
+            organization {{editOrganization?.organizationName}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -162,14 +188,19 @@
           <form #editForm="ngForm">
             <div class="form-group">
               <label for="name">Name organization to edit</label>
-              <input type="text" ngModel="{{editOrganization?.organizationName}}" name="organizationName" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name organization">
+              <input type="text" ngModel="{{editOrganization?.organizationName}}" name="organizationName"
+                     class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name organization">
             </div>
-            <input type="hidden" ngModel="{{editOrganization?.organizationId}}" name="organizationId" class="form-control" id="organizationId" placeholder="id">
-            <input type="hidden" ngModel="{{editOrganization?.numberOfRooms}}" name="numberOfRooms" class="form-control" id="numberOfRooms" placeholder="Email">
+            <input type="hidden" ngModel="{{editOrganization?.organizationId}}" name="organizationId"
+                   class="form-control" id="organizationId" placeholder="id">
+            <input type="hidden" ngModel="{{editOrganization?.numberOfRooms}}" name="numberOfRooms" class="form-control"
+                   id="numberOfRooms" placeholder="Email">
 
             <div class="modal-footer">
               <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button (click)="onUpdateOrganization(editForm.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              <button (click)="onUpdateOrganization(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
+                changes
+              </button>
             </div>
           </form>
         </div>
@@ -178,7 +209,8 @@
   </div>
 
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -191,7 +223,9 @@
           <p>Are you sure you want to delete organization {{deleteOrganization?.organizationName}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onDeleteOrganization(deleteOrganization?.organizationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="onDeleteOrganization(deleteOrganization?.organizationId)" class="btn btn-danger"
+                    data-dismiss="modal">Yes
+            </button>
           </div>
         </div>
       </div>
@@ -200,78 +234,84 @@
 
 
   <!--  allOrganizationRoomModal-->
-  <div class="modal fade" id="allOrganizationRoomModal" tabindex="-1" role="dialog" aria-labelledby="allOrganizationRoomModalLabel" aria-hidden="true">
-    <div class="container mt-3 mb-4">
-
+  <div class="modal fade" id="allOrganizationRoomModal" tabindex="-1" role="dialog"
+       aria-labelledby="allOrganizationRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog " style="max-width: 1100px;" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <div class="container bootstrap snippets bootdey">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="main-box no-header clearfix">
-                  <div class="main-box-body clearfix">
-<!--                    class="candidate-list-details"-->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <form class="form-inline my-2 my-lg-0">
-                      <input type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
-                             name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..." required>
-                    </form>
-                    <div  class="table-responsive">
+        <div class="modal-body">
+          <!--          wklejka-->
 
 
-                      <table class="table user-list">
-                        <thead>
-                        <tr>
-                          <th><span>Organization name</span></th>
-                          <th><span>Room name</span></th>
-                          <th><span>Availability</span></th>
-                          <th><span>Level</span></th>
-                          <th><span>Sitting places</span></th>
-                          <th><span>Standing places</span></th>
-                          <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let conferenceRoom of conferenceRooms">
-                        <ng-container *ngIf="conferenceRoom.organizationName === (roomOrganization?.organizationName)">
-                        <tr>
-                          <td><p>{{conferenceRoom?.organizationName}}</p></td>
-                          <td ><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
-                          <td><p>{{conferenceRoom?.availability}}</p></td>
-                          <td><p>{{conferenceRoom?.level}}</p></td>
-                          <td><p>{{conferenceRoom?.sittingPlaces}}</p></td>
-                          <td><p>{{conferenceRoom?.standingPlaces}}</p></td>
-                          <td style="width: 20%;">
-                            <a href="#" class="table-link  text-info">
-                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'addReservation')" class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></a>
-                            </a>
-                            <a href="#" class="table-link  text-info">
-                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'updateRoom')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                            </a>
-                            <a href="#" class="table-link danger">
-                              <a style="font-size: 2vh; margin: 1vh" (click)="onOpenModalRoom(conferenceRoom, 'deleteRoom')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-                            </a>
-                          </td>
-                        </tr>
-                          </ng-container>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="main-box-body clearfix">
+            <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+            <form class="form-inline my-2 my-lg-0">
+              <h2 >Conference room</h2>
+              <input style="margin-left: 400px; margin-bottom: 15px" type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
+                     name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..."
+                     required>
+            </form>
+            <div class="table-responsive">
+
+
+              <table class="table user-list">
+                <thead>
+                <tr>
+                  <th><span>Organization name</span></th>
+                  <th><span>Room name</span></th>
+                  <th><span>Availability</span></th>
+                  <th><span>Level</span></th>
+                  <th><span>Sitting places</span></th>
+                  <th><span>Standing places</span></th>
+                  <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let conferenceRoom of conferenceRooms">
+                <ng-container *ngIf="conferenceRoom.organizationName === (roomOrganization?.organizationName)">
+                  <tr>
+                    <td><p>{{conferenceRoom?.organizationName}}</p></td>
+                    <td><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
+                    <td><p>{{conferenceRoom?.availability}}</p></td>
+                    <td><p>{{conferenceRoom?.level}}</p></td>
+                    <td><p>{{conferenceRoom?.sittingPlaces}}</p></td>
+                    <td><p>{{conferenceRoom?.standingPlaces}}</p></td>
+
+                    <td style="width: 20%;">
+
+                      <a href="#" class="table-link  text-info">
+                        <a style="font-size: 15px; margin: 10px"
+                           (click)="onOpenModalRoom(conferenceRoom, 'addReservation')" class="btn btn-primary tooltips"
+                           data-placement="top" data-original-title="roomList"><i class="fa fa-share"></i></a>
+                      </a>
+
+                      <a href="#" class="table-link  text-info">
+                        <a style="font-size: 15px; margin: 10px" (click)="onOpenModalRoom(conferenceRoom, 'updateRoom')"
+                           class="btn btn-secondary tooltips" data-placement="top" data-original-title="Edit"><i
+                          class="fa fa-pencil"></i> </a>
+                      </a>
+                      <a href="#" class="table-link danger">
+                        <a style="font-size: 15px; margin: 10px" (click)="onOpenModalRoom(conferenceRoom, 'deleteRoom')"
+                           class="btn btn-primary tooltips" data-placement="top" data-original-title="Delete"><i
+                          class="fa fa-trash"></i></a>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+                </tbody>
+              </table>
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
 
+
   <!--  roomAdd-->
-  <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="roomAddModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="roomAddModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -284,16 +324,19 @@
           <form #addFormRoom="ngForm" (ngSubmit)="onAddConferenceRoom(addFormRoom)">
             <div class="form-group">
               <label for="organizationNameRoom">Organization Name</label>
-              <input type="text" ngModel="{{addRoomWithOrganization?.organizationName}}" name="organizationName" class="form-control" id="organizationNameRoom" placeholder="organizationName" required readonly>
+              <input type="text" ngModel="{{addRoomWithOrganization?.organizationName}}" name="organizationName"
+                     class="form-control" id="organizationNameRoom" placeholder="organizationName" required readonly>
             </div>
             <div class="form-group">
               <label for="conferenceRoomName">Conference room name</label>
-              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName" placeholder="Conference room nam" required>
+              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName"
+                     placeholder="Conference room nam" required>
             </div>
 
             <div class="form-group">
-<!--              <label for="availability">availability</label>-->
-              <input type="hidden" ngModel="YES" name="availability" class="form-control" id="availability" placeholder="availability" required>
+              <!--              <label for="availability">availability</label>-->
+              <input type="hidden" ngModel="true" name="availability" class="form-control" id="availability"
+                     placeholder="availability" required>
             </div>
             <div class="form-group">
               <label for="level">Level</label>
@@ -301,15 +344,17 @@
             </div>
             <div class="form-group">
               <label for="sittingPlaces">Sitting places</label>
-              <input type="number" ngModel name="sittingPlaces" class="form-control" id="sittingPlaces" placeholder="Sitting places" required>
+              <input type="number" ngModel name="sittingPlaces" class="form-control" id="sittingPlaces"
+                     placeholder="Sitting places" required>
             </div>
             <div class="form-group">
               <label for="standingPlaces">Standing places</label>
-              <input type="number" ngModel name="standingPlaces" class="form-control" id="standingPlaces" placeholder="Standing places" required>
+              <input type="number" ngModel name="standingPlaces" class="form-control" id="standingPlaces"
+                     placeholder="Standing places" required>
             </div>
             <div class="modal-footer">
               <button type="button" id="add-room-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addFormRoom.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+              <button [disabled]="addFormRoom.invalid" type="submit" class="btn btn-primary">Save !!!</button>
             </div>
           </form>
         </div>
@@ -318,7 +363,8 @@
   </div>
 
   <!-- Add reservation Modal -->
-  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="addReservationModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog"
+       aria-labelledby="addReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -331,23 +377,29 @@
           <form #addFormReservation="ngForm" (ngSubmit)="onAddReservation(addFormReservation)">
             <div class="form-group">
               <label for="conferenceRoomNameReservation">Conference Room Name</label>
-              <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required readonly>
+              <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName"
+                     class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required
+                     readonly>
             </div>
             <div class="form-group">
               <label for="reservationIdentifierReservation">Name Reservation</label>
-              <input type="text" ngModel name="reservationIdentifier" class="form-control" id="reservationIdentifierReservation" placeholder="Name Reservation" required>
+              <input type="text" ngModel name="reservationIdentifier" class="form-control"
+                     id="reservationIdentifierReservation" placeholder="Name Reservation" required>
             </div>
             <div class="form-group">
               <label for="reservationStartDateReservation">Start Reservation</label>
-              <input type="datetime-local" ngModel name="reservationStartDate" class="form-control" id="reservationStartDateReservation" placeholder="Start Reservation" required>
+              <input type="datetime-local" ngModel name="reservationStartDate" class="form-control"
+                     id="reservationStartDateReservation" placeholder="Start Reservation" required>
             </div>
             <div class="form-group">
               <label for="reservationEndDateReservation">End Reservation</label>
-              <input type="datetime-local" ngModel name="reservationEndDate" class="form-control" id="reservationEndDateReservation" placeholder="End Reservation" required>
+              <input type="datetime-local" ngModel name="reservationEndDate" class="form-control"
+                     id="reservationEndDateReservation" placeholder="End Reservation" required>
             </div>
             <div class="modal-footer">
-              <button type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addFormReservation.invalid" type="submit" class="btn btn-primary" >Save !!!</button>
+              <button type="button" id="add-reservation-form" class="btn btn-secondary" data-dismiss="modal">Close
+              </button>
+              <button [disabled]="addFormReservation.invalid" type="submit" class="btn btn-primary">Save !!!</button>
             </div>
           </form>
         </div>
@@ -355,8 +407,9 @@
     </div>
   </div>
 
-<!--  updateRoom-->
-  <div class="modal fade" id="updateRoomModal" tabindex="-1" role="dialog" aria-labelledby="updateRoomModalLabel" aria-hidden="true">
+  <!--  updateRoom-->
+  <div class="modal fade" id="updateRoomModal" tabindex="-1" role="dialog" aria-labelledby="updateRoomModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -369,30 +422,40 @@
           <form #editFormRoom="ngForm">
             <div class="form-group">
               <label for="conferenceRoomNameEdit">Conference room name</label>
-              <input type="text" ngModel="{{editConferenceRoom?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameEdit" aria-describedby="emailHelp" placeholder="conferenceRoomName" readonly>
+              <input type="text" ngModel="{{editConferenceRoom?.conferenceRoomName}}" name="conferenceRoomName"
+                     class="form-control" id="conferenceRoomNameEdit" aria-describedby="emailHelp"
+                     placeholder="conferenceRoomName" readonly>
             </div>
-            <input type="hidden" ngModel="{{editConferenceRoom?.organizationName}}" name="organizationName" class="form-control" id="organizationNameEdit" placeholder="organizationName">
-            <input type="hidden" ngModel="{{editConferenceRoom?.conferenceRoomId}}"  name="conferenceRoomId" class="form-control" id="conferenceRoomIdEdit" placeholder="organizationName">
+            <input type="hidden" ngModel="{{editConferenceRoom?.organizationName}}" name="organizationName"
+                   class="form-control" id="organizationNameEdit" placeholder="organizationName">
+            <input type="hidden" ngModel="{{editConferenceRoom?.conferenceRoomId}}" name="conferenceRoomId"
+                   class="form-control" id="conferenceRoomIdEdit" placeholder="organizationName">
             <div class="form-group">
-<!--              <label for="availability">Availability</label>-->
-              <input type="hidden" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control" id="availabilityEdit" placeholder="">
+              <label for="availability">Availability</label>
+              <input type="text" ngModel="{{editConferenceRoom?.availability}}" name="availability" class="form-control"
+                     id="availabilityEdit" placeholder="">
             </div>
             <div class="form-group">
               <label for="levelEdit">Level</label>
-              <input type="number" ngModel="{{editConferenceRoom?.level}}" name="level" class="form-control" id="levelEdit" placeholder="Level">
+              <input type="number" ngModel="{{editConferenceRoom?.level}}" name="level" class="form-control"
+                     id="levelEdit" placeholder="Level">
             </div>
             <div class="form-group">
               <label for="sittingPlacesEdit">Sitting places</label>
-              <input type="number" ngModel="{{editConferenceRoom?.sittingPlaces}}" name="sittingPlaces" class="form-control" id="sittingPlacesEdit" placeholder="Sitting places">
+              <input type="number" ngModel="{{editConferenceRoom?.sittingPlaces}}" name="sittingPlaces"
+                     class="form-control" id="sittingPlacesEdit" placeholder="Sitting places">
             </div>
             <div class="form-group">
               <label for="standingPlacesEdit">Standing places</label>
-              <input type="number" ngModel="{{editConferenceRoom?.standingPlaces}}" name="standingPlaces" class="form-control" id="standingPlacesEdit" placeholder="Standing places">
+              <input type="number" ngModel="{{editConferenceRoom?.standingPlaces}}" name="standingPlaces"
+                     class="form-control" id="standingPlacesEdit" placeholder="Standing places">
             </div>
 
             <div class="modal-footer">
               <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button  (click)="onUpdateConferenceRoom(editFormRoom.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              <button (click)="onUpdateConferenceRoom(editFormRoom.value)" data-dismiss="modal" class="btn btn-primary">
+                Save changes
+              </button>
             </div>
           </form>
         </div>
@@ -401,9 +464,10 @@
   </div>
 
 
-<!--delete Room-->
+  <!--delete Room-->
 
-  <div class="modal fade" id="deleteRoomModal" tabindex="-1" role="dialog" aria-labelledby="deleteRoomModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteRoomModal" tabindex="-1" role="dialog" aria-labelledby="deleteRoomModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -416,7 +480,9 @@
           <p>Are you sure you want to delete this room {{deleteConferenceRoom?.conferenceRoomName}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onDeleteConferenceRoom(deleteConferenceRoom?.conferenceRoomId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="onDeleteConferenceRoom(deleteConferenceRoom?.conferenceRoomId)" class="btn btn-danger"
+                    data-dismiss="modal">Yes
+            </button>
           </div>
         </div>
       </div>
@@ -425,34 +491,45 @@
 
 
   <!--  update Reservation-->
-  <div class="modal fade" id="updateReservationModal" tabindex="-1" role="dialog" aria-labelledby="updateReservationModalLabel" aria-hidden="true">
+  <div class="modal fade" id="updateReservationModal" tabindex="-1" role="dialog"
+       aria-labelledby="updateReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateReservationModalLabel">Edit Reservation {{editReservation?.reservationIdentifier}}</h5>
+          <h5 class="modal-title" id="updateReservationModalLabel">Edit
+            Reservation {{editReservation?.reservationIdentifier}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <form #editFormReservation="ngForm">
-            <input type="hidden" ngModel="{{editReservation?.reservationId}}" name="reservationId" class="form-control" id="reservationIdReservationEdit" placeholder="reservationId">
-            <input type="hidden" ngModel="{{editReservation?.reservationIdentifier}}"  name="reservationIdentifier" class="form-control" id="reservationIdentifierReservationEdit" placeholder="reservationIdentifier">
-            <input type="hidden" ngModel="{{editReservation?.conferenceRoomName}}" name="conferenceRoomName" class="form-control" id="conferenceRoomNameReservationEdit" placeholder="conferenceRoomName">
-            <input type="hidden" ngModel="{{editReservation?.organizationName}}"  name="organizationName" class="form-control" id="organizationNameReservationEdit" placeholder="organizationName">
+            <input type="hidden" ngModel="{{editReservation?.reservationId}}" name="reservationId" class="form-control"
+                   id="reservationIdReservationEdit" placeholder="reservationId">
+            <input type="hidden" ngModel="{{editReservation?.reservationIdentifier}}" name="reservationIdentifier"
+                   class="form-control" id="reservationIdentifierReservationEdit" placeholder="reservationIdentifier">
+            <input type="hidden" ngModel="{{editReservation?.conferenceRoomName}}" name="conferenceRoomName"
+                   class="form-control" id="conferenceRoomNameReservationEdit" placeholder="conferenceRoomName">
+            <input type="hidden" ngModel="{{editReservation?.organizationName}}" name="organizationName"
+                   class="form-control" id="organizationNameReservationEdit" placeholder="organizationName">
 
 
             <div class="form-group">
               <label for="reservationStartDateReservationEdit">Reservation start</label>
-              <input type="datetime-local" ngModel="{{editReservation?.reservationStartDate}}" name="reservationStartDate" class="form-control" id="reservationStartDateReservationEdit" placeholder="reservationStartDate">
+              <input type="datetime-local" ngModel="{{editReservation?.reservationStartDate}}"
+                     name="reservationStartDate" class="form-control" id="reservationStartDateReservationEdit"
+                     placeholder="reservationStartDate">
             </div>
             <div class="form-group">
               <label for="reservationEndDateReservationEdit">Reservation end</label>
-              <input type="datetime-local" ngModel="{{editReservation?.reservationEndDate}}" name="reservationEndDate" class="form-control" id="reservationEndDateReservationEdit" placeholder="reservationEndDate">
+              <input type="datetime-local" ngModel="{{editReservation?.reservationEndDate}}" name="reservationEndDate"
+                     class="form-control" id="reservationEndDateReservationEdit" placeholder="reservationEndDate">
             </div>
             <div class="modal-footer">
               <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button  (click)="onUpdateReservation(editFormReservation.value)"  data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              <button (click)="onUpdateReservation(editFormReservation.value)" data-dismiss="modal"
+                      class="btn btn-primary">Save changes
+              </button>
             </div>
           </form>
         </div>
@@ -462,7 +539,8 @@
 
   <!--  delete Reservation-->
 
-  <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog"
+       aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -475,7 +553,9 @@
           <p>Are you sure you want to delete reservation {{deleteReservation?.reservationIdentifier}} ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button (click)="onDeleteReservation(deleteReservation?.reservationId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="onDeleteReservation(deleteReservation?.reservationId)" class="btn btn-danger"
+                    data-dismiss="modal">Yes
+            </button>
           </div>
         </div>
       </div>

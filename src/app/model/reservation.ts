@@ -5,4 +5,5 @@ export interface  Reservation {
   reservationEndDate: string;
   conferenceRoomName: string;
   organizationName: string;
+
 }
