@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" style="color:white; padding: 2vh">Reservation conference room Manager</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 100px">
+  <a class="navbar-brand" style="color:white; padding: 20px; font-size: 30px">Reservation conference room Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
           aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,11 +7,11 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization
+        <a style="margin-left: 20px; font-size: 25px" class="nav-link" (click)="onOpenModalOrganization(null, 'add')">Add Organization
           <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a style="margin-left: 5vw" class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation
+        <a style="margin-left: 20px; font-size: 25px" class="nav-link" (click)="onOpenModalOrganization(null, 'reservation')">Reservation
           <span class="sr-only">(current)</span></a>
       </li>
     </ul>
@@ -30,34 +30,33 @@
 <!--TODO zmiana wysokości -->
       <div class="card m-b-40" style="">
         <div class="card-body row">
-          <div class="col-8 card-title align-self-center mb-0">
-            <div class="col-8 card-title align-self-center mb-0">
-              <h4 style="margin: 15px; font-size: 30px"><span style="font-size: 25px; margin-bottom: 10px">Name:</span> <br> {{ organization?.organizationName}}</h4>
+          <div class="col-10 card-title align-self-center mb-0">
+            <div class="col-10 card-title align-self-center mb-0">
+              <h4 style="margin: 15px; font-size: 30px"><span style="font-size: 25px; padding-bottom: 20px; ">Name:</span> <br> {{ organization?.organizationName}}</h4>
             </div>
             <div class="candidate-list-option">
               <ul class="list-unstyled">
-                <li style="font-size: 20px"><i class="fas fa-filter pr-1"></i>Numbers of Room :</li>
-
+                <li style="font-size: 20px; padding: 10px"><i class="fas fa-filter pr-1"></i>Numbers of Room :</li>
                 <i class="fa-thin fa-file-plus"></i>
-                <li style="font-size: 20px"><i class="fas fa-map-marker-alt pr-1"></i>{{ organization?.numberOfRooms }}
+                <li style="font-size: 20px; padding: 10px"><i class="fas fa-map-marker-alt pr-1"></i>{{ organization?.numberOfRooms }}
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div style="margin-top: 75px" class="card-body">
           <div class="float-right btn-group btn-group-sm" style="font-size: 50px">
-            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'edit')"
-               class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i
+            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'edit')"
+               class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i style="padding: 7px"
               class="fa fa-pencil"></i> </a>
-            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'delete')"
-               class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i
+            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'delete')"
+               class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i style="padding: 7px"
               class="fa fa-trash"></i></a>
-            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'roomList')"
-               class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i
+            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomList')"
+               class="btn btn-primary tooltips" data-placement="top" data-original-title="roomList"><i style="padding: 7px"
               class="fa fa-list"></i> </a>
-            <a style="font-size: 40px; margin: 12px" (click)="onOpenModalOrganization(organization, 'roomAdd')"
-               class="btn btn-secondary tooltips" data-placement="top" data-original-title="roomAdd"><i
+            <a style="font-size: 35px; margin: 7px" (click)="onOpenModalOrganization(organization, 'roomAdd')"
+               class="btn btn-secondary tooltips" data-placement="top" data-original-title="roomAdd"><i style="padding: 7px"
               class="fa fa-plus"></i></a>
           </div>
         </div>
@@ -249,8 +248,8 @@
 
             <form class="form-inline my-2 my-lg-0">
               <h2 >Conference room</h2>
-              <input style="margin-left: 400px; margin-bottom: 15px" type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
-                     name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search organizations..."
+              <input style="margin-left: 450px; margin-bottom: 15px" type="search" (ngModelChange)="searchConferenceRoom(keyRoom.value)" #keyRoom="ngModel" ngModel
+                     name="keyRoom" id="searchRoom" class="form-control mr-sm-2" placeholder="Search room's..."
                      required>
             </form>
             <div class="table-responsive">
@@ -258,7 +257,7 @@
 
               <table class="table user-list">
                 <thead>
-                <tr>
+                <tr style="font-size: 18px">
                   <th><span>Organization name</span></th>
                   <th><span>Room name</span></th>
                   <th><span>Availability</span></th>
@@ -270,13 +269,13 @@
                 </thead>
                 <tbody *ngFor="let conferenceRoom of conferenceRooms">
                 <ng-container *ngIf="conferenceRoom.organizationName === (roomOrganization?.organizationName)">
-                  <tr>
-                    <td><p>{{conferenceRoom?.organizationName}}</p></td>
-                    <td><p>{{conferenceRoom?.conferenceRoomName}}</p></td>
-                    <td><p>{{conferenceRoom?.availability}}</p></td>
-                    <td><p>{{conferenceRoom?.level}}</p></td>
-                    <td><p>{{conferenceRoom?.sittingPlaces}}</p></td>
-                    <td><p>{{conferenceRoom?.standingPlaces}}</p></td>
+                  <tr style="font-size: 18px">
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.organizationName}}</p></td>
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.conferenceRoomName}}</p></td>
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.availability}}</p></td>
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.level}}</p></td>
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.sittingPlaces}}</p></td>
+                    <td><p style="padding: 5px 5px 0 5px">{{conferenceRoom?.standingPlaces}}</p></td>
 
                     <td style="width: 20%;">
 
@@ -330,12 +329,12 @@
             <div class="form-group">
               <label for="conferenceRoomName">Conference room name</label>
               <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName"
-                     placeholder="Conference room nam" required>
+                     placeholder="Conference room name" required>
             </div>
 
             <div class="form-group">
               <!--              <label for="availability">availability</label>-->
-              <input type="hidden" ngModel="true" name="availability" class="form-control" id="availability"
+              <input type="hidden" ngModel="YES" name="availability" class="form-control" id="availability"
                      placeholder="availability" required>
             </div>
             <div class="form-group">
@@ -378,7 +377,7 @@
             <div class="form-group">
               <label for="conferenceRoomNameReservation">Conference Room Name</label>
               <input type="text" ngModel="{{addReservationRoom?.conferenceRoomName}}" name="conferenceRoomName"
-                     class="form-control" id="conferenceRoomNameReservation" placeholder="conferenceRoomName" required
+                     class="form-control" id="conferenceRoomNameReservation" placeholder="Conference room name" required
                      readonly>
             </div>
             <div class="form-group">
