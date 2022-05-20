@@ -229,6 +229,7 @@ export class AppComponent implements OnInit {
   }
 
 
+
   public searchConferenceRoom(keyRoom: string): void {
     console.log(keyRoom);
     const results: ConferenceRoom[] = [];
@@ -301,7 +302,8 @@ export class AppComponent implements OnInit {
     const results: Reservation[] = [];
     for (const reservation of this.reservations) {
       if (reservation.conferenceRoomName.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1
-      || reservation.reservationIdentifier.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1)
+        || reservation.organizationName.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1
+        || reservation.reservationIdentifier.toLowerCase().indexOf(keyReservation.toLowerCase()) !== -1)
       {
         results.push(reservation);
       }
@@ -370,4 +372,17 @@ export class AppComponent implements OnInit {
 
 
 
+  public filterServersRes(keyRoomRes: string): void {
+    console.log(keyRoomRes);
+    const results: ConferenceRoom[] = [];
+    for (const conferenceRoom of this.conferenceRooms) {
+      if (conferenceRoom.availability.indexOf(keyRoomRes) !== -1) {
+        results.push(conferenceRoom);
+      }
+    }
+    this.conferenceRooms = results;
+    if (results.length === 0 || !keyRoomRes) {
+      this.getConferenceRooms();
+    }
+  }
 }

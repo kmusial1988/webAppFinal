@@ -13,6 +13,22 @@ a {
   margin-bottom: 30px;
 }
 
+.btn-primary{
+  background-color: #fcc520;
+  border-color: #fcc520;
+}
+
+.btn-secondary{
+  background-color: #343a40;
+  border-color: #343a40;
+}
+.btn-primary:hover{
+  background-color: #f4d475;
+  border-color: #fcc520;
+
+}
+
+
 .card {
   border: none;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
