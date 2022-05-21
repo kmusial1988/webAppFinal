@@ -12,7 +12,11 @@ body{
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
 
-
+button:disabled,
+button[disabled]{
+  background-color: #f4d475;
+  border-color: #fcc520;
+}
 
 /* Candidate List */
 .candidate-list {
