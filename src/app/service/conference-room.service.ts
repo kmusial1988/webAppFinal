@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ConferenceRoomService {
 
-  private apiRoomOrganizationUrl = environment.apiBaseUrl+"/conference-room";
+  private apiRoomOrganizationUrl = environment.apiBaseUrl+"/conference-rooms";
 
   constructor(private http: HttpClient) { }
 
@@ -18,15 +18,15 @@ export class ConferenceRoomService {
   }
 
   public addRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
-    return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/add`, conferenceRoom);
+    return this.http.post<ConferenceRoom>(`${this.apiRoomOrganizationUrl}`, conferenceRoom);
   }
 
   public updateRoom(conferenceRoom: ConferenceRoom): Observable<ConferenceRoom>{
     console.log(conferenceRoom)
-    return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}/update`, conferenceRoom);
+    return this.http.put<ConferenceRoom>(`${this.apiRoomOrganizationUrl}`, conferenceRoom);
   }
 
   public deleteRoom(conferenceRoomId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/delete/${conferenceRoomId}`);
+    return this.http.delete<void>(`${this.apiRoomOrganizationUrl}/${conferenceRoomId}`);
   }
 }

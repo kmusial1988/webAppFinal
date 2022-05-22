@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ServiceOrganizationService {
 
-  private apiServerOrganizationUrl = environment.apiBaseUrl+"/organization";
+  private apiServerOrganizationUrl = environment.apiBaseUrl+"/organizations";
 
   constructor(private http: HttpClient) { }
 
@@ -18,15 +18,15 @@ export class ServiceOrganizationService {
   }
 
   public addOrganization(organization: Organization): Observable<Organization>{
-    return this.http.post<Organization>(`${this.apiServerOrganizationUrl}/add`, organization);
+    return this.http.post<Organization>(`${this.apiServerOrganizationUrl}`, organization);
   }
 
   public updateOrganization(organization: Organization): Observable<Organization>{
-    return this.http.put<Organization>(`${this.apiServerOrganizationUrl}/update`, organization);
+    return this.http.put<Organization>(`${this.apiServerOrganizationUrl}`, organization);
   }
 
   public deleteOrganization(organizationId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiServerOrganizationUrl}/delete/${organizationId}`);
+    return this.http.delete<void>(`${this.apiServerOrganizationUrl}/${organizationId}`);
   }
 
 }

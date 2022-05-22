@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Organization} from "./model/organization";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ServiceOrganizationService} from "./service/service-organization.service";
-import {NgForm} from "@angular/forms";
+import {FormControl, NgForm} from "@angular/forms";
 import {ConferenceRoomService} from "./service/conference-room.service";
 import {ReservationService} from "./service/reservation.service";
 import {ConferenceRoom} from "./model/conferenceRoom";
@@ -13,7 +13,10 @@ import {Reservation} from "./model/reservation";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent implements OnInit {
+
   public organizations: Organization[];
   public editOrganization: Organization;
   public deleteOrganization: Organization;
@@ -30,6 +33,8 @@ export class AppComponent implements OnInit {
   public editReservation: Reservation;
   public deleteReservation: Reservation;
 
+
+
   constructor(private organizationService: ServiceOrganizationService,
               private conferenceRoomService: ConferenceRoomService,
               private reservationService: ReservationService,
@@ -40,6 +45,7 @@ export class AppComponent implements OnInit {
     this.getConferenceRooms();
     this.getReservations();
   }
+
 
   //Organizatio
 
@@ -271,6 +277,8 @@ export class AppComponent implements OnInit {
 
   //Reservation
   NO: string = "NO";
+  organizationNameVali = new FormControl('');
+
 
 
 
@@ -331,8 +339,6 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#deleteReservationModal');
       this.deleteReservation = reservation;
     }
-
-
     container.appendChild(button);
     button.click();
   }
@@ -344,7 +350,7 @@ export class AppComponent implements OnInit {
     let downloadLink = document.createElement('a');
     document.body.appendChild(downloadLink);
     downloadLink.href = 'data:' + dataType + ', '+ tableHtml;
-    downloadLink.download = 'reportRoom.docx';
+    downloadLink.download = 'reportRoom.xls';
     downloadLink.click();
     document.body.removeChild(downloadLink);
 
@@ -361,7 +367,7 @@ export class AppComponent implements OnInit {
     let downloadLink = document.createElement('a');
     document.body.appendChild(downloadLink);
     downloadLink.href = 'data:' + dataType + ', '+ tableHtml;
-    downloadLink.download = 'reportReservation.docx';
+    downloadLink.download = 'reportReservation.xls';
     downloadLink.click();
     document.body.removeChild(downloadLink);
 

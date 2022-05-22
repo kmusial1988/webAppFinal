@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 120px;">
-  <a class="navbar-brand" style="color:white; padding: 20px; font-size: 40px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600">Reservati<span style="color: #fcc520">o</span>n Manager</a>
+  <a class="navbar-brand" style="cursor: default; color:white; padding: 20px; font-size: 40px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600">Reservati<span style="color: #fcc520">o</span>n Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
           aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -81,10 +81,9 @@
           <form #addForm="ngForm" (ngSubmit)="onAddOrganization(addForm)">
             <div class="form-group">
               <label for="organizationName">Name :</label>
-              <input type="text" ngModel name="organizationName" class="form-control" id="organizationName"
-                     placeholder="Organization name" required>
+              <input type="text" ngModel maxlength="20" minlength="2" name="organizationName" class="form-control" id="organizationName"
+                     placeholder="Organization name"  required>
             </div>
-
             <div class="modal-footer">
               <button type="button" id="add-organization-form" class="btn btn-secondary" data-dismiss="modal">Close
               </button>
@@ -190,7 +189,7 @@
           <form #editForm="ngForm">
             <div class="form-group">
               <label for="name">New organization name:</label>
-              <input type="text" ngModel="{{editOrganization?.organizationName}}" name="organizationName"
+              <input type="text" ngModel="{{editOrganization?.organizationName}}" maxlength="20" minlength="2" name="organizationName"
                      class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name organization">
             </div>
             <input type="hidden" ngModel="{{editOrganization?.organizationId}}" name="organizationId"
@@ -335,7 +334,7 @@
             </div>
             <div class="form-group">
               <label for="conferenceRoomName">Conference room name:</label>
-              <input type="text" ngModel name="conferenceRoomName" class="form-control" id="conferenceRoomName"
+              <input type="text" ngModel maxlength="20" minlength="2" name="conferenceRoomName" class="form-control" id="conferenceRoomName"
                      placeholder="Conference room name" required>
             </div>
 
@@ -346,7 +345,7 @@
             </div>
             <div class="form-group">
               <label for="level">Level:</label>
-              <input type="number" ngModel name="level" class="form-control" id="level" placeholder="Level" required>
+              <input type="number" ngModel min="0" max="10" name="level" class="form-control" id="level" placeholder="Level" required>
             </div>
             <div class="form-group">
               <label for="sittingPlaces">Sitting places:</label>
@@ -389,7 +388,7 @@
             </div>
             <div class="form-group">
               <label for="reservationIdentifierReservation">Reservation name:</label>
-              <input type="text" ngModel name="reservationIdentifier" class="form-control"
+              <input type="text" ngModel minlength="2" maxlength="20" name="reservationIdentifier" class="form-control"
                      id="reservationIdentifierReservation" placeholder="Reservation name" required>
             </div>
             <div class="form-group">
@@ -582,3 +581,4 @@
     <p>No organizations were found.</p>
   </div>
 </div>
+

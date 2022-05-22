@@ -8,7 +8,7 @@ import {environment} from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiReservationUrl = environment.apiBaseUrl+"/reservation";
+  private apiReservationUrl = environment.apiBaseUrl+"/reservations";
 
   constructor(private http: HttpClient) { }
 
@@ -18,15 +18,15 @@ export class ReservationService {
 
   public addReservation(reservation: Reservation): Observable<Reservation>{
     console.log(reservation)
-    return this.http.post<Reservation>(`${this.apiReservationUrl}/add`, reservation);
+    return this.http.post<Reservation>(`${this.apiReservationUrl}`, reservation);
   }
 
   public updateReservation(reservation: Reservation): Observable<Reservation>{
 
-    return this.http.put<Reservation>(`${this.apiReservationUrl}/update/`, reservation);
+    return this.http.put<Reservation>(`${this.apiReservationUrl}`, reservation);
   }
 
   public deleteReservation(reservationId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiReservationUrl}/delete/${reservationId}`);
+    return this.http.delete<void>(`${this.apiReservationUrl}/${reservationId}`);
   }
 }
